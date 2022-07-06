@@ -1,0 +1,80 @@
+{% load static %}
+
+<div class="top-header-area" id="sticker">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 text-center">
+                <div class="main-menu-wrap">
+                    <!-- logo -->
+                    <div class="site-logo">
+                        <a href="{% url 'home:home' %}">
+                            <img src="{% static 'img/logo.png' %}" alt="">
+                        </a>
+                    </div>
+                    <!-- logo end -->
+
+                    <!-- menu start -->
+                    <nav class="main-menu">
+                        <ul>
+                            <li class="{% if request.resolver_match.url_name %} active {% endif %}"><a
+                                    href="{% url 'home:home' %}">Home</a></li>
+                            <li class="{% if request.resolver_match.url_name %} active {% endif %}"><a
+                                    href="{% url 'about_us:about_us' %}">About</a></li>
+                            <li class="{% if request.resolver_match.url_name %} active {% endif %}"><a class="active"
+                                                                                                       href="{% url 'contact_us:contact_us' %}">Contact</a>
+                            </li>
+                            <li class="{% if request.resolver_match.url_name %} active {% endif %}"><a
+                                    href="{% url 'list_for_shop:list_for_shop' %}">shop</a></li>
+
+                            {% if request.user.is_authenticated %}
+                                <li class="{% if request.resolver_match.url_name %} active {% endif %}"><a
+                                        href="#">{{ request.user.username }}</a></li>
+                                <span class="btn btn-danger"><a href="{% url 'home:logout' %}">Logout</a></span>
+                            {% else %}
+                                <li class="{% if request.resolver_match.url_name %} active {% endif %}"><a
+                                        href="{% url 'home:register' %}">Register</a></li>
+                                <li class="{% if request.resolver_match.url_name %} active {% endif %}"><span>/</span>
+                                </li>
+                                <li class="{% if request.resolver_match.url_name %} active {% endif %}"><a
+                                        href="{% url 'home:login' %}">Login</a></li>
+                            {% endif %}
+                            <li class="{% if request.resolver_match.url_name %} active {% endif %}">
+                                <div class="header-icons">
+                                    <a class="shopping-cart" href="{% url 'list_for_shop:cart' %}"><i
+                                            class="fas fa-shopping-cart"></i></a>
+                                    <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                    <div class="mobile-menu"></div>
+                    <!-- menu end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- search area -->
+<div class="search-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="close-btn"><i class="fas fa-window-close"></i></span>
+                <div class="search-bar">
+                    <div class="search-bar-tablecell">
+                        <h3>Search For:</h3>
+                        <form id="search_form" name="gs" method="get" action="{% url 'list_for_shop:search' %}">
+                            <label>
+                                <input type="text" name="q" class="searchText" placeholder="Keywords">
+                            </label>
+                            <button type="submit"> Search <i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end search area -->

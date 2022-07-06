@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- title -->
+<title>{% block title %}Cart{% endblock %}</title>
+
+{% block body %}
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Fresh and Organic</p>
+                        <h1>Cart</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- cart -->
+    <div class="cart-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="cart-table-wrap">
+                        <table class="cart-table">
+                            <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th class="product-remove"></th>
+                                <th class="product-image">Product Image</th>
+                                <th class="product-name">Name</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-total">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for list in list_shop %}
+                            <tr class="table-body-row">
+                                <td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
+                                <td class="product-image"><img src="{{ list.image.url }}"
+                                                               alt=""></td>
+                                <td class="product-name"><a href="{{ list.get_absolut_url }}">{{ list.title }}</a></td>
+                                <td class="product-price">{{ list.price }}</td>
+                                <td class="product-quantity"><label>
+                                    <input type="number" placeholder="0">
+                                </label></td>
+                                <td class="product-total">1</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="total-section">
+                        <table class="total-table">
+                            <thead class="total-table-head">
+                            <tr class="table-total-row">
+                                <th>Total</th>
+                                <th>Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="total-data">
+                                <td><strong>Subtotal: </strong></td>
+                                <td>$500</td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Shipping: </strong></td>
+                                <td>$45</td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Total: </strong></td>
+                                <td>$545</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="cart-buttons">
+                            <a href="{% url 'list_for_shop:check_out' %}" class="boxed-btn black">Check Out</a>
+                        </div>
+                    </div>
+
+                    <div class="coupon-section">
+                        <h3>Apply Coupon</h3>
+                        <div class="coupon-form-wrap">
+                            <form action="{% url 'home:home' %}">
+                                <p><label>
+                                    <input type="text" placeholder="Coupon">
+                                </label></p>
+                                <p><input type="submit" value="Apply"></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end cart -->
+
+{% endblock %}

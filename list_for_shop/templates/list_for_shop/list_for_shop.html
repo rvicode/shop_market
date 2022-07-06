@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title>{% block title %}Shop{% endblock %}</title>
+{% block body %}
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Fresh and Organic</p>
+                        <h1>Shop</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- products -->
+    <div class="product-section mt-150 mb-150">
+        <div class="container">
+            <div class="row product-lists">
+                {% for list in list_shop %}
+                    <div class="col-lg-4 col-md-6 text-center strawberry">
+                        <div class="single-product-item">
+                            <div class="product-image">
+                                <a href="{{ list.get_absolut_url }}"><img src="{{ list.image.url }}" alt=""></a>
+                            </div>
+                            <h3>{{ list.title }}</h3>
+                            <p class="product-price"><span>{{ list.unit }}</span> {{ list.price }}</p>
+                            <a href="{% url 'list_for_shop:cart' %}" class="cart-btn"><i
+                                    class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="pagination-wrap">
+                        {% if list_shop.has_other_pages %}
+                            <ul>
+                                {% if list_shop.has_previous %}
+                                    <li><a href="?page={{ list_shop.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Prev</a>
+                                    </li>
+                                {% endif %}
+                                {% for i in list_shop.paginator.page_range %}
+                                    {% if list_shop.number == i %}
+                                        <li><a class="active">{{ i }}</a></li>
+                                    {% else %}
+                                        <li><a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if list_shop.has_next %}
+                                    <li><a href="?page={{ list_shop.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end products -->
+
+{% endblock %}
